@@ -26,7 +26,7 @@ export default new Command(
 
         const user = await twitchAPI.GetTwitchUser(value)
 
-        const embed = twitchEmbed.buildTwitchEmbed(user);
+        const embed = twitchEmbed.build(user);
         interaction.followUp({embeds:[embed]});
     }
 });

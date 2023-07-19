@@ -2,7 +2,7 @@ import { Colors, EmbedBuilder} from "discord.js";
 import { TwitchUser } from "../models/twitchUser";
 export class TwitchEmbed
 {
-    public buildTwitchEmbed(user: TwitchUser) : EmbedBuilder
+    public build(user: TwitchUser) : EmbedBuilder
     {
         const embed = new EmbedBuilder();
         try 
