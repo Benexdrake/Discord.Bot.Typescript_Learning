@@ -2,6 +2,7 @@ import { ApplicationCommandOptionType } from "discord.js";
 import { Command } from "../client/Command";
 import { Steam_API } from "../controllers/steam_API";
 import { SteamGameEmbed } from "../embeds/steamGameEmbed";
+import { SteamUserEmbed } from "../embeds/steamUserEmbed";
 
 export default new Command(
 {
@@ -42,7 +43,8 @@ export default new Command(
         {
             const id = await steam_API.ConvertUsernameToID(url);
             const user = await steam_API.GetSteamUserProfile(id);
-            interaction.followUp(user);
+            const embed = new SteamUserEmbed().build(user);
+            interaction.followUp({embeds: [embed]});
         }
     }
 });
