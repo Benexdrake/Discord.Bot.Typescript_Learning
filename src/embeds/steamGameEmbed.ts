@@ -1,5 +1,5 @@
 import { Colors, EmbedBuilder} from "discord.js";
-import {Game} from "../models/steamGame";
+import {Game} from "../models/Steam/steamGame";
 
 export class SteamGameEmbed
 {

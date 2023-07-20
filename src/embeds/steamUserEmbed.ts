@@ -1,5 +1,5 @@
 import { Colors, EmbedBuilder} from "discord.js";
-import { SteamUser } from "../models/steamUser";
+import { SteamUser } from "../models/Steam/steamUser";
 
 export class SteamUserEmbed
 {
@@ -20,20 +20,44 @@ export class SteamUserEmbed
             .setFields([
                 {
                     name: 'Country',
-                    value: user.country
+                    value: user.country,
+                    inline:true
+                },
+                {
+                    name: 'Created',
+                    value: user.created.toLocaleDateString(),
+                    inline:true
                 },
                 {
                     name: 'Games',
                     value: user.games.toString()
                 },
+                
+            ]);
+            if(user.lastLogoff.toString() !== 'Invalid Date')
+            {
+                embed.setFooter({
+                    text: `Last logoff: ${user.lastLogoff}`
+                });    
+            }
+
+            if(user.steamGameMini?.length > 0)
+            {
+                embed.addFields({
+                    name: ' ',
+                    value: 'Last played Games:',
+                });
+                
+                for(const game of user.steamGameMini)
                 {
-                    name: 'Created',
-                    value: user.created.toLocaleDateString()
+                    const n = (game.playtime_2weeks / 60).toFixed(2)
+                    const e = {
+                        name: game.name,
+                        value: 'Playtime: ' + n + 'h'
+                    }
+                    embed.addFields(e);
                 }
-            ])
-            .setFooter({
-                text: `Last logoff: ${user.lastLogoff}`
-            })    
+            }
         } 
         catch (error) 
         {

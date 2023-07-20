@@ -1,3 +1,5 @@
+import { SteamGameMini } from "./steamGameMini";
+
 export class SteamUser
 {
     public username:string = "";
@@ -7,4 +9,5 @@ export class SteamUser
     public games:string = "";
     public created:Date = new Date();
     public lastLogoff:Date = new Date();
+    public steamGameMini:SteamGameMini[] = [];
 }

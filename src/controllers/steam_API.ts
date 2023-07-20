@@ -1,7 +1,7 @@
 import axios from "axios";
-import { SteamID } from "../models/steamID";
-import { Game } from "../models/steamGame";
-import { SteamUser } from "../models/steamUser";
+import { SteamID } from "../models/Steam/steamID";
+import { Game } from "../models/Steam/steamGame";
+import { SteamUser } from "../models/Steam/steamUser";
 
 const {steam} = require('../../config.json');
 
@@ -47,15 +47,18 @@ export class Steam_API
 
     async GetSteamUserProfile(id:string) : Promise<SteamUser>
     {
-        const url = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${steam}&steamids=${id}`;
-        return await axios.get(url).then(async x => {
+        return await axios.get(`http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${steam}&steamids=${id}`).then(async x => {
+            let user = new SteamUser();
 
-            const games = await axios.get(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${steam}&steamid=${id}&format=json`).then(x => {
+            user.games = await axios.get(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${steam}&steamid=${id}&format=json`).then(x => {
                 return x.data.response.game_count;
             })
-            let user = new SteamUser();
+
+            user.steamGameMini = await axios.get(`http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=${steam}&steamid=${id}&format=json`).then(x => {
+                return x.data.response.games;
+            })
+            
             user.username = x.data.response.players[0].personaname;
-            user.games = games;
             user.avatarUrl = x.data.response.players[0].avatarfull;
             user.country = x.data.response.players[0].loccountrycode;
             user.profileUrl = x.data.response.players[0].profileurl;
