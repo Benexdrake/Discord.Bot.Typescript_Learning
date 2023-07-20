@@ -1,5 +1,6 @@
 import { Command } from "../client/Command";
 import { ApplicationCommandOptionType, PermissionFlagsBits, VoiceChannel } from "discord.js";
+import { MuteLogic } from "../logic/muteLogic";
 
 export default new Command({
     name: "mute",
@@ -17,17 +18,6 @@ export default new Command({
     
     run: async ({ interaction }) => 
     {
-        const voiceChannel = await interaction.client.channels.fetch('1073155921888415784') as VoiceChannel;
-        
-        const members = voiceChannel.members;
-        
-        const value = interaction.options.data[0].value as boolean;
-        
-        members.forEach(x => x.voice.setMute(value));
-        
-        if(value === true)
-        interaction.followUp('mute on');
-        else
-        interaction.followUp('mute off');
+        await new MuteLogic().Mute(interaction);
     }
 });

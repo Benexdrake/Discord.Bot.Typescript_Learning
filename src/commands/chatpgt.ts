@@ -1,6 +1,6 @@
 import { ApplicationCommandOptionType } from "discord.js";
 import { Command } from "../client/Command";
-import { ChatGPT_API } from "../controllers/chatGPT_API";
+import { ChatGPTLogic } from "../logic/chatGPTLogic";
 
 export default new Command(
 {
@@ -16,9 +16,6 @@ export default new Command(
         
     run: async ({ interaction }) => 
     {
-        const gpt = new ChatGPT_API();
-        const value = interaction.options.data[0].value?.toLocaleString() || '';
-        const response = await gpt.sendOpenAIRequest(value);
-        interaction.followUp(response);
+        await new ChatGPTLogic().chatGPT(interaction);
     }
 });

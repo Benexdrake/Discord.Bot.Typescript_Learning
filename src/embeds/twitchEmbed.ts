@@ -1,5 +1,5 @@
 import { Colors, EmbedBuilder} from "discord.js";
-import { TwitchUser } from "../models/twitchUser";
+import { TwitchUser } from "../models/Steam/twitchUser";
 export class TwitchEmbed
 {
     public build(user: TwitchUser) : EmbedBuilder
@@ -15,9 +15,9 @@ export class TwitchEmbed
             
             .setColor(Colors.Purple)
             .setDescription(user.description)
-            .setImage(user.offlineImageUrl)
+            .setImage(user.offlineImageUrl || 'https://www.gamepur.com/wp-content/uploads/2022/12/featured-best-games-to-stream-on-twitch.jpg?w=1024')
             .setFooter({text: 'Follows: ' + user.follower})
-            .setThumbnail(user.profileImageUrl);
+            .setThumbnail(user.profileImageUrl || 'https://www.gamepur.com/wp-content/uploads/2022/12/featured-best-games-to-stream-on-twitch.jpg?w=1024');
 
             if(user.viewCount > 0)
             {

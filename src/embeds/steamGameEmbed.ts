@@ -1,4 +1,4 @@
-import { Colors, EmbedBuilder} from "discord.js";
+import { Colors, ConnectionService, EmbedBuilder} from "discord.js";
 import {Game} from "../models/Steam/steamGame";
 
 export class SteamGameEmbed
@@ -25,7 +25,7 @@ export class SteamGameEmbed
             })
             .setColor(Colors.Red)
             .setDescription(game.short_description)
-            .setImage(game.header_image)
+            .setImage(game.header_image || "")
             .setFooter({
                 text: game.legal_notice
             })
@@ -63,14 +63,16 @@ export class SteamGameEmbed
                 value: categories.slice(0,-2)
             },
             {
-                name: 'Website',
-                value: game.website
-            },
-            {
                 name: 'DLC`s',
                 value: game.dlc?.length?.toLocaleString() || '0'
-            }]);
+            }
+            ]);
 
+            if(game.website !== null)
+            embed.addFields({
+                name: 'Website',
+                value: game.website
+            });
 
         } 
         catch (error) 

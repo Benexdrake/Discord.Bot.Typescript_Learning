@@ -1,7 +1,6 @@
 import { ApplicationCommandOptionType, Embed } from "discord.js";
 import { Command } from "../client/Command";
-import { TwitchEmbed } from "../embeds/twitchEmbed";
-import { Twitch_API } from "../controllers/twitch_API";
+import { TwitchLogic } from "../logic/twitchLogic";
 
 export default new Command(
 {
@@ -10,8 +9,8 @@ export default new Command(
     options:
     [
         {
-            name: 'username',
-            description:'insert the name of the user',
+            name: 'twitch_user',
+            description:'insert user name or url',
             type: ApplicationCommandOptionType.String,
             required: true
         }
@@ -19,14 +18,6 @@ export default new Command(
     
     run: async ({ interaction }) => 
     {
-        const twitchEmbed = new TwitchEmbed();
-        const twitchAPI = new Twitch_API();
-
-        const value = interaction.options.data[0].value?.toLocaleString() || '';
-
-        const user = await twitchAPI.GetTwitchUser(value)
-
-        const embed = twitchEmbed.build(user);
-        interaction.followUp({embeds:[embed]});
+        await new TwitchLogic().Twitch(interaction);
     }
 });

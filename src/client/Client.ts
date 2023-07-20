@@ -77,7 +77,6 @@ export class ExtendedClient extends Client
             `${__dirname}/../events/*{.ts,.js}`
         );
 
-        
         eventFiles.forEach(async (filePath) => {
             const event: Event<keyof ClientEvents> = await this.importFile(
                 filePath
