@@ -21,6 +21,6 @@
 
 # Information:
 
-To use the Bot, change the name of template.config.json to config and insert your Token and GuildId into it.
+To use the Bot, change the name of **template.config.json** to **config.json** and insert your **Token** and **GuildId** into it.
 
-If u want an empty Template Discord Bot, look for my Template Discord Bot Project.
+If u want an empty Template Discord Bot, look for my [Template Discord Bot](https://github.com/Benexdrake/Discord-Typescript-Template) Project.
