@@ -25,14 +25,14 @@ export class SteamGameEmbed
             })
             .setColor(Colors.Red)
             .setDescription(game.short_description)
-            .setImage(game.header_image || "")
+            .setImage(game.header_image)
             .setFooter({
-                text: game.legal_notice
+                text: game.legal_notice || " "
             })
             .setFields([
             {
                 name: 'Price',
-                value: game.price_overview.final_formatted,
+                value: game.price_overview.final_formatted || "Free",
                 inline:true
             },
             {
@@ -69,9 +69,9 @@ export class SteamGameEmbed
             ]);
 
             if(game.website !== null)
-            embed.addFields({
-                name: 'Website',
-                value: game.website
+                embed.addFields({
+                    name: 'Website',
+                    value: game.website
             });
 
         } 

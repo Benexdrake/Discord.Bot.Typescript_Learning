@@ -19,9 +19,11 @@ export class Steam_API
         return steamids;
     }
 
-    async GetSteamGame(id:string) : Promise<Game>
+    async GetSteamGame(url:string) : Promise<Game>
     {
         let steamGame = new Game();
+        
+        const id = url.split('/')[4]
 
         await axios.get('https://store.steampowered.com/api/appdetails?appids='+id)
         .then(async response => 

@@ -3,7 +3,7 @@ import { join } from "path";
 
 export class DiscordUserEmbed
 {
-    Build(member: GuildMember) : EmbedBuilder
+    Build(member: GuildMember, display_name:string) : EmbedBuilder
     {
         const embed = new EmbedBuilder();
 
@@ -14,8 +14,9 @@ export class DiscordUserEmbed
         embed
         .setAuthor({
             iconURL: member.user.displayAvatarURL(),
-            name: member.displayName
+            name: display_name
         })
+        .setTitle(member.displayName)
         .setColor(member.displayHexColor)
         .setImage(member.displayAvatarURL())
         .setFields([
@@ -32,9 +33,6 @@ export class DiscordUserEmbed
             value: role
         }
         ])
-        
-
-
 
         return embed;
     }

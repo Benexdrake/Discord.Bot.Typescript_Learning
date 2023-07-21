@@ -14,8 +14,8 @@ export class SteamLogic
         {
             if(url.includes('https://store.steampowered.com/app/'))
             {
-                const id = url.split('/')[4]
-                const steamgame = await steam_API.GetSteamGame(id);
+                
+                const steamgame = await steam_API.GetSteamGame(url);
                 
                 const embed = new SteamGameEmbed().build(steamgame);
                 
