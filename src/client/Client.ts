@@ -54,11 +54,11 @@ export class ExtendedClient extends Client
         const commandFiles = await globPromise(
             `${dir}/commands/*.ts`
         );
-        console.log(commandFiles);
+        //console.log(commandFiles);
         commandFiles.forEach(async (filePath) => {
             const command: CommandType = await this.importFile(filePath);
             if (!command.name) return;
-            console.log(command);
+            console.log('Registered: '+command.name);
 
             this.commands.set(command.name, command);
             slashCommands.push(command);
