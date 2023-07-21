@@ -18,6 +18,6 @@ export default new Command({
     
     run: async ({ interaction }) => 
     {
-        await new MuteLogic().Mute(interaction);
+        //await new MuteLogic().Mute(interaction);
     }
 });

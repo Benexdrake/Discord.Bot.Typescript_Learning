@@ -1,5 +1,6 @@
 export class TwitchUser
 {
+    id:string = "";
     login:string = "";
     displayName:string="";
     description:string="";

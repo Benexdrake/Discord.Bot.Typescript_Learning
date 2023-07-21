@@ -1,5 +1,5 @@
 import { Colors, EmbedBuilder} from "discord.js";
-import { TwitchUser } from "../models/Steam/twitchUser";
+import { TwitchUser } from "../models/twitch/twitchUser";
 export class TwitchEmbed
 {
     public build(user: TwitchUser) : EmbedBuilder

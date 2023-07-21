@@ -1,5 +1,6 @@
 import { ApplicationCommandOptionType, ForumChannel, GuildTextThreadManager, MessagePayload, ThreadChannel } from "discord.js";
 import { Command } from "../client/Command";
+const {lfgId} = require('../../config.json');
 
 export default new Command(
 {
@@ -21,8 +22,7 @@ export default new Command(
         
     run: async ({ interaction }) => 
     {
-        const threadId = '1081483395701411900';
-        const channel = await interaction.guild?.channels.fetch(threadId).then(x => {return x as ForumChannel})
+        const channel = await interaction.guild?.channels.fetch(lfgId).then(x => {return x as ForumChannel})
 
         let title = "";
         let message = "";
