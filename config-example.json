@@ -1,0 +1,11 @@
+{
+    "token" : "",
+    "guildId": "",
+    "steam":"",
+    "twitch":
+    {
+        "clientid":"",
+        "clientsecret":""
+    },
+    "chatgpt": ""
+}

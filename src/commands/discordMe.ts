@@ -1,5 +1,6 @@
 import { ApplicationCommandOptionType, GuildMember } from "discord.js";
 import { Command } from "../client/Command";
+import { DiscordUserEmbed } from "../embeds/discordUserEmbed";
 
 
 export default new Command(
@@ -9,9 +10,16 @@ export default new Command(
         
     run: async ({ interaction }) => 
     {
-        const user = interaction.user;
+        const member = interaction.member;
+        const embed = new DiscordUserEmbed().Build(member);
+        //Avatar URL
+        // Display Color Hex Color
+        // Joined At
+        // Roles
+        // Name
 
-        
+        // Created At
+        interaction.followUp({embeds:[embed]});
     }
 });
 
