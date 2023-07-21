@@ -1,23 +1,25 @@
-Bot Commands:
+# Bot Commands:
 
-Twitch:
-/twitch user: ""
+### Twitch:
+- /twitch user: ""
 
-Steam:
-/steam url: ""
-/steam user: ""
+### Steam:
+- /steam url: ""
+- /steam user: ""
 
-ChatGPT:
-/chatgtp: question:
+### ChatGPT:
+- /chatgtp: question:
 
-Mute or Unmute all
-/mute true/false
+### Mute or Unmute all
+- /mute true/false
 
-Discord Profile
-/me
+### Discord Profile
+- /me
 
-LFG - Looking for Group - creates a new Forum Thread
-/lfg url: "" message: ""
+### LFG - Looking for Group - creates a new Forum Thread
+- /lfg url: "" message: ""
+
+# Information:
 
 To use the Bot, change the name of template.config.json to config and insert your Token and GuildId into it.
 
