@@ -1,6 +1,6 @@
 import { ApplicationCommandOptionType, ForumChannel, GuildTextThreadManager, MessagePayload, ThreadChannel } from "discord.js";
 import { Command } from "../client/Command";
-const {lfgId} = require('../../config.json');
+import { LfgLogic } from "../logic/lfgLogic";
 
 export default new Command(
 {
@@ -22,23 +22,6 @@ export default new Command(
         
     run: async ({ interaction }) => 
     {
-        const channel = await interaction.guild?.channels.fetch(lfgId).then(x => {return x as ForumChannel})
-
-        let title = "";
-        let message = "";
-
-        for(const option of interaction.options.data)
-        {
-            if(option.name === 'url')
-                title = option.value?.toString() || "";
-            else if(option.name === 'message')
-                message = option.value?.toString() || "";
-        }
-            const thread = await channel?.threads.create({
-                name: title,
-                message: {content: message}
-            });
-
-        interaction.followUp({content: 'Thread created!',ephemeral: true});
+        await new LfgLogic().lfgCommand(interaction);
     }
 });

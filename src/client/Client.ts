@@ -5,7 +5,7 @@ import {
     Collection
 } from "discord.js";
 import { Event } from "./Event";
-const {token, guildId} = require('../../config.json');
+const {discord} = require('../../config.json');
 
 import { CommandType } from "../type/CommandType";
 
@@ -28,7 +28,7 @@ export class ExtendedClient extends Client
     start(dir:string) 
     {
         this.registerModules(dir);
-        this.login(token);
+        this.login(discord.token);
     }
 
     async importFile(filePath: string) 
@@ -65,10 +65,13 @@ export class ExtendedClient extends Client
         });
 
         this.on("ready", () => {
-            this.registerCommands({
-                commands: slashCommands,
-                guildId: guildId
-            });
+            for(const guild of this.guilds.cache)
+            {   
+                this.registerCommands({
+                    commands: slashCommands,
+                    guildId: guild[1].id
+                });
+            }
         });
 
         // Event

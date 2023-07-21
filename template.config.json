@@ -1,7 +1,9 @@
 {
-    "token" : "",
-    "guildId": "",
-    "lfgId": "",
+    "discord":
+    {
+        "token" : "",
+        "lfgId": ""
+    },
     "steam":"",
     "twitch":
     {

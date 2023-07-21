@@ -6,8 +6,13 @@ import { Discord } from "../logic/discord";
 
 export default new Command(
 {
-    name: "me",
-    description: "show my discord profile",
+    name: "discord_user",
+    description: "show a discord profile",
+    options: [{
+        name: 'username',
+        description:'enter a user name or id',
+        type: ApplicationCommandOptionType.String,
+    }],
         
     run: async ({ interaction }) => 
     {
