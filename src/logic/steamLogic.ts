@@ -1,3 +1,4 @@
+import { isNumberObject } from "util/types";
 import { Steam_API } from "../controllers/steam_API";
 import { SteamGameEmbed } from "../embeds/steamGameEmbed";
 import { SteamUserEmbed } from "../embeds/steamUserEmbed";
@@ -14,11 +15,8 @@ export class SteamLogic
         {
             if(url.includes('https://store.steampowered.com/app/'))
             {
-                
                 const steamgame = await steam_API.GetSteamGame(url);
-                
                 const embed = new SteamGameEmbed().build(steamgame);
-                
                 interaction.followUp({embeds:[embed]});
             }
             else
@@ -26,8 +24,33 @@ export class SteamLogic
         }
         else if(interaction.options.data[0].name === 'user')
         {
-            const id = await steam_API.ConvertUsernameToID(url);
-            const user = await steam_API.GetSteamUserProfile(id);
+            const value = interaction.options.data[0].value as string;
+            
+            let id = "";
+            
+            const n = parseInt(value);
+
+            if(value.includes('https://steamcommunity.com/'))
+            {
+                id = await steam_API.ConvertUsernameToID(url);
+
+            }
+            else if(!isNaN(n))
+            {
+                id = n.toString();
+
+            }
+            else
+            {
+                id = await steam_API.ConvertUsernameToID(`https://steamcommunity.com/id/${value}`);
+            }
+
+            if(id === "" || undefined)
+            {
+                interaction.followUp(`Cant find User: ${value}`);
+            }
+
+            const user = await steam_API.GetSteamUserProfile(id.toString());
             const embed = new SteamUserEmbed().build(user);
             interaction.followUp({embeds: [embed]});
         }
