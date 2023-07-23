@@ -38,16 +38,18 @@ export class SteamLogic
             else if(!isNaN(n))
             {
                 id = n.toString();
-
             }
             else
             {
                 id = await steam_API.ConvertUsernameToID(`https://steamcommunity.com/id/${value}`);
             }
 
+            console.log(id);
+
             if(id === "" || undefined)
             {
                 interaction.followUp(`Cant find User: ${value}`);
+                return;
             }
 
             const user = await steam_API.GetSteamUserProfile(id.toString());
