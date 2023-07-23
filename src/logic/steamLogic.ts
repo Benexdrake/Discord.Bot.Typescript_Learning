@@ -44,8 +44,6 @@ export class SteamLogic
                 id = await steam_API.ConvertUsernameToID(`https://steamcommunity.com/id/${value}`);
             }
 
-            console.log(id);
-
             if(id === "" || undefined)
             {
                 interaction.followUp(`Cant find User: ${value}`);

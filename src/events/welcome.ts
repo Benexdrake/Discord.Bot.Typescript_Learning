@@ -1,7 +1,7 @@
 import { Event } from "../client/Event";
 import { WelcomeLogic } from "../logic/welcomeLogic";
 
-export default new Event("guildMemberAdd", (member) => 
+export default new Event("guildMemberUpdate", (oldMember,newMember) => 
 {
-    new WelcomeLogic().Welcome(member);
+    new WelcomeLogic().Welcome(newMember);
 });
