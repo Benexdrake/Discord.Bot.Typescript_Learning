@@ -5,7 +5,7 @@ import { SteamLogic } from "../logic/steamLogic";
 export default new Command(
 {
     name: "steam",
-    description: "steam api",
+    description: "ask steam for games or user profiles",
     options: [
         {
             name: 'url',
