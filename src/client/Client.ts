@@ -1,4 +1,5 @@
 import {
+    ActivityType,
     ApplicationCommandDataResolvable,
     Client,
     ClientEvents,
@@ -65,6 +66,7 @@ export class ExtendedClient extends Client
         });
 
         this.on("ready", () => {
+            this.user?.setActivity({name: 'den Usern auf die Finger', type: ActivityType.Watching, url: 'https://github.com/Benexdrake/DiscordTS'})
             for(const guild of this.guilds.cache)
             {   
                 this.registerCommands({
@@ -75,7 +77,6 @@ export class ExtendedClient extends Client
         });
 
         // Event
-        
         const eventFiles = await globPromise(
             `${__dirname}/../events/*{.ts,.js}`
         );
