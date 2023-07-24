@@ -47,7 +47,8 @@ export class Twitch_API
                     user.viewerCount = x.data.data[0]?.viewer_count;
                     user.startedAt = x.data.data[0]?.started_at;
                     user.tags = x.data.data[0]?.tags;
-                    user.offlineImageUrl = x.data.data[0]?.thumbnail_url.replace('{width}','1920').replace('{height}','1080')
+                    if(x.data.data[0]?.thumbnail_url !==  undefined)
+                        user.offlineImageUrl = x.data.data[0]?.thumbnail_url.replace('{width}','1920').replace('{height}','1080');
                     user.language = x.data.data[0]?.language;
                 })
         return user;
