@@ -1,6 +1,7 @@
 import { ApplicationCommandOptionType, ForumChannel, GuildTextThreadManager, MessagePayload, ThreadChannel } from "discord.js";
 import { Command } from "../client/Command";
 import { LfgLogic } from "../logic/lfgLogic";
+import { LfgModal } from "../modal/lfgModal";
 
 export default new Command(
 {
@@ -22,6 +23,7 @@ export default new Command(
         
     run: async ({ interaction }) => 
     {
-        await new LfgLogic().lfgCommand(interaction);
+
+            await new LfgLogic().lfgCommand(interaction);
     }
 });

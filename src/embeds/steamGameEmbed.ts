@@ -18,6 +18,23 @@ export class SteamGameEmbed
             game.developers.forEach(x => developers += x + ", ");
             game.categories.forEach(x => categories += x.description + ", ");
 
+            if(game.price_overview?.final_formatted === undefined)
+            {
+                embed.addFields({
+                    name: 'Price',
+                    value:  "Free to Play",
+                    inline:true
+                });
+            }
+            else
+            {
+                embed.addFields({
+                    name: 'Price',
+                    value: game.price_overview.final_formatted,
+                    inline:true
+                });
+            }
+
             embed.setAuthor({
                 iconURL:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/768px-Steam_icon_logo.svg.png',
                 name: game.name,
@@ -30,11 +47,6 @@ export class SteamGameEmbed
                 text: game.legal_notice || " "
             })
             .setFields([
-            {
-                name: 'Price',
-                value: game.price_overview.final_formatted || "Free",
-                inline:true
-            },
             {
                 name: 'Archievments',
                 value: game.achievements?.total?.toLocaleString() || '0',

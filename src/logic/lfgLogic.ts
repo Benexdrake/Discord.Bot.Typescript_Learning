@@ -1,4 +1,4 @@
-import { AnyThreadChannel, ForumChannel } from "discord.js";
+import { AnyThreadChannel, ForumChannel, ModalSubmitInteraction } from "discord.js";
 import { ExtendedInteraction } from "../interfaces/ExtendedInteraction";
 
 import { Steam_API } from "../controllers/steam_API";
@@ -47,5 +47,19 @@ export class LfgLogic
                 await thread.send({content: `<@${thread.ownerId}>`, embeds: [embed]})
             }
         }
+    }
+
+    async LFGModalCommand(interaction:ModalSubmitInteraction)
+    {
+        const value1 = JSON.parse(JSON.stringify(interaction.components[0].components[0])).value as string;
+        const value2 = JSON.parse(JSON.stringify(interaction.components[1].components[0])).value as string;
+
+        const channel = await interaction.guild?.channels.fetch(discord.lfgId).then(x => {return x as ForumChannel})
+
+        await channel?.threads.create({
+            name: value1,
+            message: {content: value2}
+        });
+        interaction.reply({content: 'Thread created!',ephemeral: true});
     }
 }

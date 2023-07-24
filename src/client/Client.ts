@@ -20,6 +20,9 @@ const globPromise = promisify(glob);
 
 export class ExtendedClient extends Client 
 {
+
+    STICKYMESSAGEID:string = "";
+
     commands: Collection<string, CommandType> = new Collection();
 
     constructor() 
