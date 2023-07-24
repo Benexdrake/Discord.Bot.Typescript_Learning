@@ -7,20 +7,31 @@ export class LfgModal
         const modal = new ModalBuilder();
         modal.setTitle('Looking for Group').setCustomId('lfgmodal');
 
+        const title = new TextInputBuilder();
+        title.setCustomId('title')
+            .setLabel('Enter a Title')
+            .setStyle(TextInputStyle.Short)
+            .setRequired(true);
+
+
         const url = new TextInputBuilder();
         url.setCustomId('url')
             .setLabel('Enter a steam game Url')
-            .setStyle(TextInputStyle.Short);
+            .setStyle(TextInputStyle.Short)
+            .setRequired(false)
+            .setPlaceholder('https://store.steampowered.com/app/000000/XXXXXX');
 
         const information = new TextInputBuilder();
         information.setCustomId('information')
                     .setLabel('Tell us all what u want or search')
-                    .setStyle(TextInputStyle.Paragraph);
+                    .setStyle(TextInputStyle.Paragraph)
+                    .setRequired(true);
 
-        const one = new ActionRowBuilder<TextInputBuilder>().addComponents(url);
-        const two = new ActionRowBuilder<TextInputBuilder>().addComponents(information);
+        const a = new ActionRowBuilder<TextInputBuilder>().addComponents(title);
+        const b = new ActionRowBuilder<TextInputBuilder>().addComponents(url);
+        const c = new ActionRowBuilder<TextInputBuilder>().addComponents(information);
 
-        modal.addComponents(one,two)
+        modal.addComponents(a,b,c);
         return modal;
     }
 }

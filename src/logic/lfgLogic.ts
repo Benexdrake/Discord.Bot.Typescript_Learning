@@ -17,10 +17,17 @@ export class LfgLogic
 
         for(const option of interaction.options.data)
         {
-            if(option.name === 'url')
+            if(option.name === 'title')
                 title = option.value?.toString() || "";
-            else if(option.name === 'message')
+            else if(option.name === 'url')
+            {
+                if(option.name.includes('https://store.steampowered.com/app/'))
+                    title = option.value?.toString() || "";
+                else
                 message = option.value?.toString() || "";
+            }
+            else if(option.name === 'message')
+                message += option.value?.toString() || "";
         }
         const thread = await channel?.threads.create({
             name: title,
@@ -34,7 +41,7 @@ export class LfgLogic
     {
         if(thread.name.includes('https://store.steampowered.com/app/'))
         {
-            const split = thread.name.split(' ');
+            const split = thread.name.split(';');
     
             const url = split.find(x => x.includes('https://store.steampowered.com/app/'));
             if(url !== undefined)
@@ -44,20 +51,29 @@ export class LfgLogic
     
                 await thread.setName(game.name)
     
-                await thread.send({content: `<@${thread.ownerId}>`, embeds: [embed]})
+                await thread.send({content: `<@${thread.ownerId}>\nTitle: ${split[0]}`, embeds: [embed]})
             }
+        }
+        else
+        {
+            const nameSplit = thread.name.split(';');
+
+            await thread.setName(nameSplit[0] || "Error");
+    
+            await thread.send({content: `<@${thread.ownerId}>\nUrl:${nameSplit[1] || "Error"}`})
         }
     }
 
     async LFGModalCommand(interaction:ModalSubmitInteraction)
     {
-        const value1 = JSON.parse(JSON.stringify(interaction.components[0].components[0])).value as string;
-        const value2 = JSON.parse(JSON.stringify(interaction.components[1].components[0])).value as string;
+        const value0 = JSON.parse(JSON.stringify(interaction.components[0].components[0])).value as string;
+        const value1 = JSON.parse(JSON.stringify(interaction.components[1].components[0])).value as string;
+        const value2 = JSON.parse(JSON.stringify(interaction.components[2].components[0])).value as string;
 
         const channel = await interaction.guild?.channels.fetch(discord.lfgId).then(x => {return x as ForumChannel})
 
         await channel?.threads.create({
-            name: value1,
+            name: `${value0};${value1}`,
             message: {content: value2}
         });
         interaction.reply({content: 'Thread created!',ephemeral: true});

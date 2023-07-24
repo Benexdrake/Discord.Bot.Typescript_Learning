@@ -9,7 +9,7 @@ export default new Command(
     options:
     [
         {
-            name: 'twitch_user',
+            name: 'user',
             description:'insert user name or url',
             type: ApplicationCommandOptionType.String,
             required: true

@@ -15,7 +15,7 @@ export default new Command(
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(lfgbutton);
 
 		await interaction.followUp({
-			content: `Test`,
+			content: `Create a LFG with a Modal`,
 			components: [row],
 		});
     }
