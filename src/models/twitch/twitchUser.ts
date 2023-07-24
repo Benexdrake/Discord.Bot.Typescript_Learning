@@ -12,4 +12,5 @@ export class TwitchUser
     viewerCount:number = 0;
     startedAt:Date = new Date();
     tags:string[] = [];
+    language:string = "";
 }

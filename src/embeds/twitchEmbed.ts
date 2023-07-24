@@ -1,5 +1,6 @@
 import { Colors, EmbedBuilder} from "discord.js";
 import { TwitchUser } from "../models/twitch/twitchUser";
+import { validateHeaderName } from "http";
 export class TwitchEmbed
 {
     public build(user: TwitchUser) : EmbedBuilder
@@ -7,8 +8,11 @@ export class TwitchEmbed
         const embed = new EmbedBuilder();
         try 
         {
-            const date = user.startedAt?.toString();
-            
+            const dateString = user.startedAt?.toString();
+            const dateDate = new Date(dateString);
+            const date = dateDate.toLocaleDateString();
+
+
             embed.setAuthor({
                 iconURL: 'https://img.freepik.com/vektoren-premium/twitch-logo_578229-259.jpg?w=500',
                 name: user.displayName,
@@ -24,12 +28,15 @@ export class TwitchEmbed
             {
                 embed.setFields([
                 {
-                    name: 'Views',
-                    value: user.viewerCount.toLocaleString(),
-                    inline: true
+                    name: '‎',
+                    value: 'Live 🔴'
                 },
                 {
-                    name: 'Last Stream',
+                    name: 'Language',
+                    value: `:flag_${user.language}:`
+                },
+                {
+                    name: 'Title',
                     value: user.gameTitle,
                 },
                 {
