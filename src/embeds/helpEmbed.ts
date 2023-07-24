@@ -16,7 +16,7 @@ export class HelpEmbed
             const commands = client.commands.map(x => {return {name: x.name, description: x.description}})
             for(const command of commands)
             {
-                embed.addFields({name: '/'+command.name, value: command.description})
+                embed.addFields({name: '/'+command.name, value: `${command.description}`})
             }
         }
         else

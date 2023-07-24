@@ -14,8 +14,8 @@ export default new Command({
             required: true
         }
     ],
-    defaultMemberPermissions: PermissionFlagsBits.MuteMembers,
-    
+    defaultMemberPermissions: PermissionFlagsBits.Administrator,
+        
     run: async ({ interaction }) => 
     {
         //await new MuteLogic().Mute(interaction);

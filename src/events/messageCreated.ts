@@ -5,6 +5,6 @@ export default new Event("messageCreate", async (message) => {
 
     if(message.member?.id !== '1104701684539740191' && message.channelId === '1075713574527320064')
     {
-        new StickyMessage().Message(message);
+        //new StickyMessage().Message(message);
     }
 });

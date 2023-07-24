@@ -31,7 +31,6 @@ export class Twitch_API
             user.description = x.data.data[0].description;
             user.profileImageUrl = x.data.data[0].profile_image_url;
             user.offlineImageUrl = x.data.data[0].offline_image_url;
-            user.viewCount = x.data.data[0].view_count;
         }).catch(error => console.log(error));
                 
         await axios.get('https://api.twitch.tv/helix/users/follows?to_id=' + user.id, {headers})
@@ -40,6 +39,15 @@ export class Twitch_API
                     user.follower = x.data.total;
                 }).catch(error => {console.log(error)});
 
+        await axios.get(`https://api.twitch.tv/helix/streams?user_id=${user.id}`,{headers})
+                .then(async x => 
+                {
+                    user.gamename = x.data.data[0]?.game_name;
+                    user.gameTitle = x.data.data[0]?.title;
+                    user.viewerCount = x.data.data[0]?.viewer_count;
+                    user.startedAt = x.data.data[0]?.started_at;
+                    user.tags = x.data.data[0]?.tags;
+                })
         return user;
     }
 }

@@ -13,7 +13,7 @@ export default new Command(
             type: ApplicationCommandOptionType.String,
             required: true
         }],
-        defaultMemberPermissions: PermissionFlagsBits.ManageMessages,
+        defaultMemberPermissions: PermissionFlagsBits.Administrator,
         
     run: async ({ interaction }) => 
     {

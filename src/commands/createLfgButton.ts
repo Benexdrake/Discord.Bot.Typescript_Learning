@@ -1,12 +1,12 @@
 import { Command } from "../client/Command";
 import { LfgButton } from "../buttons/lfgButton";
-import { ActionRowBuilder, ButtonBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, PermissionFlagsBits } from "discord.js";
 
 export default new Command(
 {
     name: "createlfgbutton",
     description: "create",
-
+    defaultMemberPermissions: PermissionFlagsBits.Administrator,
         
     run: async ({ interaction }) => 
     {

@@ -7,26 +7,49 @@ export class TwitchEmbed
         const embed = new EmbedBuilder();
         try 
         {
+            const date = user.startedAt?.toString();
+            
             embed.setAuthor({
                 iconURL: 'https://img.freepik.com/vektoren-premium/twitch-logo_578229-259.jpg?w=500',
                 name: user.displayName,
                 url: 'https://www.twitch.tv/' + user.login
             })
-            
             .setColor(Colors.Purple)
             .setDescription(user.description)
             .setImage(user.offlineImageUrl || 'https://www.gamepur.com/wp-content/uploads/2022/12/featured-best-games-to-stream-on-twitch.jpg?w=1024')
             .setFooter({text: 'Follows: ' + user.follower})
-            .setThumbnail(user.profileImageUrl || 'https://www.gamepur.com/wp-content/uploads/2022/12/featured-best-games-to-stream-on-twitch.jpg?w=1024');
+            .setThumbnail(user.profileImageUrl || 'https://www.gamepur.com/wp-content/uploads/2022/12/featured-best-games-to-stream-on-twitch.jpg?w=1024')
 
-            if(user.viewCount > 0)
+            if(user.gamename !== undefined)
             {
                 embed.setFields([
                 {
                     name: 'Views',
-                    value: user.viewCount.toLocaleString(),
+                    value: user.viewerCount.toLocaleString(),
                     inline: true
-                }])
+                },
+                {
+                    name: 'Last Stream',
+                    value: user.gameTitle,
+                },
+                {
+                    name: 'Viewer',
+                    value: user.viewerCount?.toString()
+                },
+                {
+                    name: 'Category',
+                    value: user.gamename,
+                    inline: true
+                },
+                {
+                    name: 'Started at',
+                    value: date
+                },
+                {
+                    name: 'Tags',
+                    value: user.tags?.join(', ')
+                }
+                    ]);
             }
         } 
         catch (error) 

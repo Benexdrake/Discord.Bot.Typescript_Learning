@@ -9,8 +9,8 @@ export default new Event("interactionCreate", async (interaction) => {
     // Chat Input Commands
     if (interaction.isCommand()) {
         const command = client.commands.get(interaction.commandName);
-        if(command?.name !== 'lfgmodal')
-            await interaction.reply('Please wait');
+        if(!command?.name.includes('modal'))
+            await interaction.deferReply();
         if (!command)
             return interaction.followUp("You have used a non existent command");
         

@@ -6,6 +6,10 @@ export class TwitchUser
     description:string="";
     profileImageUrl:string="";
     offlineImageUrl:string="";
-    viewCount:number=0;
     follower:number = 0; // X
+    gamename: string = "";
+    gameTitle:string = "";
+    viewerCount:number = 0;
+    startedAt:Date = new Date();
+    tags:string[] = [];
 }
