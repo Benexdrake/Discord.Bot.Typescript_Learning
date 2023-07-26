@@ -1,4 +1,5 @@
 import { Event } from "../client/Event";
+import { Crunchyroll_API } from "../controllers/crunchyroll_API";
 import { StickyMessage } from "../logic/stickyMessage";
 
 export default new Event("messageCreate", async (message) => {

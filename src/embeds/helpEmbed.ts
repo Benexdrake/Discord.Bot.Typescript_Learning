@@ -1,4 +1,4 @@
-import { EmbedBuilder } from "discord.js";
+import { EmbedBuilder, PermissionsBitField } from "discord.js";
 import { ExtendedInteraction } from "../interfaces/ExtendedInteraction";
 import {client} from '..'
 
