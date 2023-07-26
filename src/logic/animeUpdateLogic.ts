@@ -24,6 +24,7 @@ export class AnimeUpdateLogic
             const updater = new AnimeUpdater();
             
             const loadAnimes = await updater.Start(message,value);
+            console.log(`Found ${loadAnimes.length} Animes`)
 
             await instance.get('https://localhost:5000/api/Crunchyroll',).then(x => 
             {
