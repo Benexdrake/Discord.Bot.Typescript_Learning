@@ -15,19 +15,23 @@ import { promisify } from "util";
 
 import { RegisterCommandsOptions } from "../interfaces/RegisterCommandsOptions";
 
+import { Database } from 'sqlite3';
+
 
 const globPromise = promisify(glob);
 
 export class ExtendedClient extends Client 
 {
-
-    STICKYMESSAGEID:string = "";
-
     commands: Collection<string, CommandType> = new Collection();
+    public db:Database | undefined;
 
     constructor() 
     {
         super({ intents: 32767 });
+        this.db = new Database('db.sqlite');
+        this.db.get(
+            'create table if not exists sticky ( channelid varchar(128) primary key, messageid varchar(128))'
+);
     }
 
     start(dir:string) 

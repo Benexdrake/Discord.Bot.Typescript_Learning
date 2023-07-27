@@ -13,10 +13,18 @@ export class HelpEmbed
         {
             embed.setTitle('/help')
             .setDescription('a List of all Commands')
-            const commands = client.commands.map(x => {return {name: x.name, description: x.description}})
+            const commands = client.commands.map(x => {return {name: x.name, description: x.description, role: x.defaultMemberPermissions}})
             for(const command of commands)
             {
-                embed.addFields({name: '/'+command.name, value: `${command.description}`})
+                if(command.role?.toString() === '8')
+                {
+                    if(interaction.memberPermissions?.has("Administrator"))
+                        embed.addFields({name: '🛠 /'+command.name, value: `${command.description}`})
+                }
+                else
+                {
+                    embed.addFields({name: '/'+command.name, value: `${command.description}`})
+                }
             }
         }
         else

@@ -3,3 +3,5 @@ dist/
 .env
 config.json
 start.bat
+webapi.lnk
+db.sqlite

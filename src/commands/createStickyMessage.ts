@@ -1,16 +1,16 @@
 import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
 import { Command } from "../client/Command";
 import { ChatGPTLogic } from "../logic/chatGPTLogic";
-import { PurgeLogic } from "../logic/purgeLogic";
+import { StickyMessage } from "../logic/stickyMessage";
 
 export default new Command(
 {
-    name: "purge",
-    description: "purge a channel",
+    name: "createstickymessage",
+    description: "creating a sticky message",
     options: [
         {
-            name: 'how_many',
-            description:'1-100 or all',
+            name: 'messageid',
+            description:'insert messageid',
             type: ApplicationCommandOptionType.String,
             required: true
         }],
@@ -18,6 +18,10 @@ export default new Command(
         
     run: async ({ interaction }) => 
     {
-        await new PurgeLogic().Purge(interaction);
+        let messageId = interaction?.options?.data[0].value as string;
+        let channelId = interaction.channelId;
+        new StickyMessage().AddMessage(channelId,messageId);
+
+        await interaction.deleteReply();
     }
 });

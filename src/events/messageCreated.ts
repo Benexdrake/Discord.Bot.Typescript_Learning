@@ -6,8 +6,8 @@ const {discord}  = require('../../config.json');
 
 export default new Event("messageCreate", async (message) => {
 
-    if(message.member?.id !== '1104701684539740191' && message.channelId === discord.stickymessagechannel)
+    if(message.member?.id !== '1104701684539740191')
     {
-        await new StickyMessage().Message(message);
+        await new StickyMessage().CheckMessage(message);
     }
 });

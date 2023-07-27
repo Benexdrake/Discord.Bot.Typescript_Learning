@@ -8,8 +8,6 @@ export class LfgButton
         lfg.setCustomId('lfg')
         .setLabel('Open LFG Modal')
         .setStyle(ButtonStyle.Primary);
-
-
         return lfg;
     }
 }

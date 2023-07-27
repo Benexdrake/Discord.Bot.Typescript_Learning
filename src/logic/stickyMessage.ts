@@ -1,51 +1,47 @@
 import axios from "axios";
-import { Embed, EmbedBuilder, Message, TextBasedChannel } from "discord.js";
+import { Embed, EmbedBuilder, Message } from "discord.js";
+
+import { ExtendedInteraction } from "../interfaces/ExtendedInteraction";
+
 import https from 'https'
-import { StickyDB } from "../data/stickyDb";
+
+import {client} from '..'
+import { resolve } from "path";
+import newMember from "../events/newMember";
 
 export class StickyMessage
 {
-    private async CreateMessage(interaction: Message)
+    async AddMessage(channelId:string, messageId:string)
     {
-        const instance = axios.create({
-            httpsAgent: new https.Agent({
-              rejectUnauthorized: false
-            })
-          });
-        const message = await interaction.channel?.send({embeds:[{title: 'New Sticky Message', description: 'Im a Demo Sticky yo!'}]});
-        console.log(message.id);
-        //await instance.post('https://localhost:5000/api/StickyMessage',{id:message.id.toString()});
+      const insert = `insert or replace into sticky values ('${channelId}','${messageId}')`;
+      client.db?.get( insert );
     }
-    async Message(interaction: Message)
-    {
-        //const db = new StickyDB();
-        //db.Connect();
 
-        //const instance = axios.create({
-        //    httpsAgent: new https.Agent({
-        //      rejectUnauthorized: false
-        //    })
-        //  });
-        //let messageId = "";
-        //await instance.get('https://localhost:5000/api/StickyMessage').then(x => {
-        //    messageId = x.data.id
-        //    console.log(x.data)
-        //})
-        //const channel = interaction.channel as TextBasedChannel;
-        //if(messageId === undefined)
-        //{
-        //    this.CreateMessage(interaction);
-        //    return;
-        //}
-        //const message = await channel.messages.fetch(stickymessageid).then(x => {return x});
-        //if(message === null)
-        //    return;
-        //const embed = new EmbedBuilder({title: 'Copy Sticky Message', description: 'Im a Demo Sticky yo!'});
-        //
-        //await message?.delete();   
-        //
-        //const newMessage = await channel.send({embeds:[embed]});
-        
-        //new JsonConvert().CreateConfig(token,guildId,newMessage?.id,stickymessagechannel)
+    async CheckMessage(interaction: Message)
+    {
+      client.db?.get( "select messageid from sticky where channelid = " + `'${interaction.channelId}'`, [],
+      async (err: any,result: any) => { await this.Message(result.messageid,interaction); });
+    }
+    
+    private async Message(id:string, interaction:Message)
+    {
+      try 
+      {
+        const oldMessage = await interaction.channel.messages.fetch(id);
+        // sende neue message
+        const newMessage = await interaction.channel.send({content: (await oldMessage).content, components:(await oldMessage).components});
+        if((oldMessage).deletable)
+        {
+          // AddMessage
+          await this.AddMessage(newMessage.channelId, newMessage.id);
+          // lösche alte message
+          (oldMessage).delete();
+        }
+      } 
+      catch 
+      (error) 
+      {
+        console.error(error)
+      }
     }
 }
